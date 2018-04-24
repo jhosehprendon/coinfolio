@@ -2,7 +2,7 @@ import React from 'react';
 import { Router, Route, Switch, Link, NavLink } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import PortafolioDashboardPage from '../components/PortafolioDashboardPage';
-// import AddCoinPage from '../components/AddCoinPage';
+import AddCoinPage from '../components/AddCoinPage';
 import NotFoundPage from '../components/NotFoundPage';
 import LoginPage from '../components/LoginPage';
 import PrivateRoute from './PrivateRoute';
@@ -16,7 +16,7 @@ const AppRouter = () => (
       <Switch>
         <PublicRoute path="/" component={LoginPage} exact={true} />
         <PrivateRoute path="/dashboard" component={PortafolioDashboardPage} />
-        {/* <PrivateRoute path="/add" component={AddCoinPage}/> */}
+        <PrivateRoute path="/add" component={AddCoinPage}/>
         <Route component={NotFoundPage} />
       </Switch>
     </div>
