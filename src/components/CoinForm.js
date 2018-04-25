@@ -1,7 +1,5 @@
 import React from 'react';
-import moment from 'moment';
-
-const now = moment();
+import axios from 'axios';
 
 export default class CoinForm extends React.Component {
 
@@ -11,7 +9,8 @@ export default class CoinForm extends React.Component {
         this.state = {
             name: props.coin ? props.coin.name : '',
             amount: props.coin ? (props.coin.amount / 100).toString() : '',
-            error: ''
+            error: '',
+            coins: []
         };
     }
 
@@ -26,6 +25,34 @@ export default class CoinForm extends React.Component {
             this.setState(() => ({ amount }))
         }
     };
+
+    renderAllCoins = async () => {
+
+        const allCoinsApi = 'https://api.coinmarketcap.com/v1/ticker/';
+        let requestAllCoins;
+        let type;
+
+        try {
+            requestAllCoins = await axios.get(allCoinsApi); 
+            type = "FETCH_ALL_COINS"       
+        }catch(error){
+            console.log('error', error);
+        }
+
+        let arrayAllCoins = requestAllCoins.data.map(x => {
+            return (x.name)
+        });
+
+        const coins = arrayAllCoins;
+
+        this.setState(() => ({ coins }));
+
+    }
+
+    componentDidMount() {
+        this.renderAllCoins();     
+    }
+
 
     onSubmit = (e) => {
         e.preventDefault();
@@ -42,7 +69,9 @@ export default class CoinForm extends React.Component {
     };
 
     render() {
+        // this.renderAllCoins();
         return(
+                
                 <form className="form" onSubmit={this.onSubmit}>
                     {this.state.error && <p className="form__error">{this.state.error}</p>}
                     <input 
@@ -53,6 +82,19 @@ export default class CoinForm extends React.Component {
                         value={this.state.name} 
                         onChange={this.onNameChange}           
                     />
+                    
+                    <select 
+                        type="text"
+                        className="text-input"
+                        placeholder="Coin name"
+                        autoFocus
+                        value={this.state.name} 
+                        onChange={this.onNameChange}           
+                    >
+                        {this.state.coins.map((coin, i)=>{
+                            return <option key={i}>{coin}</option>
+                        })}
+                    </select>
                     <input 
                         type="text"
                         placeholder="Amount"
