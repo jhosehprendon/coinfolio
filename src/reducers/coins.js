@@ -7,6 +7,8 @@ const coinsReducer = (state = coinsReducerDefaultState, action) => {
                 ...state,
                 action.coin
             ];
+        case 'SET_COINS':
+            return action.coins;   
         default:
             return state;
     }

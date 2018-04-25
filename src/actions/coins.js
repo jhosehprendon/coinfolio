@@ -24,3 +24,27 @@ export const startAddCoin = (coinData = {}) => {
         })
     };
 };
+
+// SET COINS
+export const setCoins = (coins) => ({
+    type: 'SET_COINS',
+    coins
+});
+
+export const startSetCoins = () => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return database.ref(`users/${uid}/coins`).once('value').then((snapshot) => {
+            const coins = [];
+
+            snapshot.forEach((childSnapshot) => {
+                coins.push({
+                    id: childSnapshot.key,
+                    ...childSnapshot.val()
+                });
+            });
+
+            dispatch(setCoins(coins));
+        });
+    };
+};
