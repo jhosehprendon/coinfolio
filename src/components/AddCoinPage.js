@@ -14,7 +14,7 @@ export class AddCoinPage extends React.Component {
             <div>
                 <div className="page-header">
                     <div className="content-container">
-                        <h1 className="page-header__title">Add Coin</h1>
+                        <h1 className="page-header__title">Add a coin to your portafolio</h1>
                         <Link className="back-link" to="/dashboard">
                             <p>&lt;  Go Back to Dashboard</p>
                         </Link>

@@ -7,14 +7,14 @@ export default class CoinForm extends React.Component {
         super(props);
 
         this.state = {
-            name: props.coin ? props.coin.name : '',
             amount: props.coin ? (props.coin.amount / 100).toString() : '',
+            name: '',
             error: '',
             coins: []
         };
     }
 
-    onNameChange = (e) => {
+    onCoinChange = (e) => {
         const name = e.target.value;
         this.setState(() => ({ name }));
     };
@@ -74,23 +74,13 @@ export default class CoinForm extends React.Component {
                 
                 <form className="form" onSubmit={this.onSubmit}>
                     {this.state.error && <p className="form__error">{this.state.error}</p>}
-                    <input 
-                        type="text"
-                        className="text-input"
-                        placeholder="Coin name"
-                        autoFocus
-                        value={this.state.name} 
-                        onChange={this.onNameChange}           
-                    />
-                    
                     <select 
                         type="text"
                         className="text-input"
-                        placeholder="Coin name"
-                        autoFocus
                         value={this.state.name} 
-                        onChange={this.onNameChange}           
+                        onChange={this.onCoinChange}           
                     >
+                        <option value="" disabled>Select a coin</option>
                         {this.state.coins.map((coin, i)=>{
                             return <option key={i}>{coin}</option>
                         })}
