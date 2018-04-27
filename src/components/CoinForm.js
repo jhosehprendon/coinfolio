@@ -10,6 +10,7 @@ export default class CoinForm extends React.Component {
             amount: props.coin ? (props.coin.amount / 100).toString() : '',
             name: '',
             error: '',
+            times: '',
             coins: []
         };
     }
@@ -49,10 +50,32 @@ export default class CoinForm extends React.Component {
 
     }
 
-    componentDidMount() {
-        this.renderAllCoins();     
+    getCoinValue = async () => {
+        const coinApi = `https://cors-anywhere.herokuapp.com/https://api.coinmarketcap.com/v1/ticker/${this.state.name}`;
+        let requestCoin;
+        let type;
+
+        try {
+            requestCoin = await axios.get(coinApi); 
+            type = "FETCH_COIN"       
+        }catch(error){
+            console.log('error', error);
+        }
+
+        let times = requestCoin.data[0].price_usd;
+
+        times = times * this.state.amount;
+
+        this.setState(() => ({ times }));
+   
+        // console.log(times)  //OK
+        // console.log(this.state.times)
     }
 
+
+    componentWillMount() {
+        this.renderAllCoins();  
+    }
 
     onSubmit = (e) => {
         e.preventDefault();
@@ -60,19 +83,20 @@ export default class CoinForm extends React.Component {
         if(!this.state.name || !this.state.amount) {
             this.setState(() => ({ error: 'Please select a coin and input amount' }));
         } else {
-            this.setState(() => ({ error: ''}));
+            this.setState(() => ({ error: ''})); 
+            
             this.props.onSubmit({
                 name: this.state.name,
-                amount: parseFloat(this.state.amount, 10) * 100
-            });
+                amount: parseFloat(this.state.amount, 10) * 100,
+                times: parseFloat(this.state.times, 10) * 100
+            });    
         }
     };
 
     render() {
-        // this.renderAllCoins();
         return(
                 
-                <form className="form" onSubmit={this.onSubmit}>
+                <form className="form" onSubmit={this.onSubmit} onChange={this.getCoinValue.bind(this)}>
                     {this.state.error && <p className="form__error">{this.state.error}</p>}
                     <select 
                         type="text"

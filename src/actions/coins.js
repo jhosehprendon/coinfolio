@@ -12,9 +12,10 @@ export const startAddCoin = (coinData = {}) => {
         const uid = getState().auth.uid;
         const {
             name="",  
-            amount=0
+            amount=0,
+            times=0
         } = coinData;
-        const coin = {name, amount};
+        const coin = {name, amount, times};
 
         return database.ref(`users/${uid}/coins`).push(coin).then((ref) => {
             dispatch(addCoin({

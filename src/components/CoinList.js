@@ -13,7 +13,7 @@ export const CoinList = (props) => (
             {
                 props.coins.length === 0 ? (
                     <div className="list-item list-item--message">
-                        <span><p>No coins</p></span>
+                        <span><p>No coins in your portafolio</p></span>
                     </div>
                 ) : (
 

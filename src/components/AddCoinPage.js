@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { startAddCoin } from '../actions/coins';
 
 export class AddCoinPage extends React.Component {
+    
     onSubmit = (coin) => {
         this.props.startAddCoin(coin);
         this.props.history.push('/');
