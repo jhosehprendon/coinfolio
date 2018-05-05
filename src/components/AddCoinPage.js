@@ -10,6 +10,7 @@ export class AddCoinPage extends React.Component {
         this.props.startAddCoin(coin);
         this.props.history.push('/');
     };
+    
     render() {
         return (
             <div>

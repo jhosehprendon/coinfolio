@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import numeral from 'numeral';
+import axios from 'axios';
 
-const CoinListItem = ({ name, amount, times, id }) => (
+
+const CoinListItem = ({ name, amount, id, times }) => (
+
     <Link className="list-item" to={`/edit/${id}`}>
         <div>
             <h3 className="list-item__title">{name}</h3>
@@ -11,5 +14,6 @@ const CoinListItem = ({ name, amount, times, id }) => (
         <h3 className="list-item__data">{numeral(times / 100).format('$0,0.00')}</h3>
     </Link> 
 );
+
 
 export default CoinListItem;

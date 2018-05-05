@@ -1,5 +1,7 @@
 import uuid from 'uuid';
 import database from '../firebase/firebase';
+import axios from 'axios';
+
 
 // ADD_COIN Action creator
 export const addCoin = (coin) => ({
@@ -33,16 +35,38 @@ export const setCoins = (coins) => ({
 });
 
 export const startSetCoins = () => {
-    return (dispatch, getState) => {
+    return (dispatch, getState ) => {
         const uid = getState().auth.uid;
+
         return database.ref(`users/${uid}/coins`).once('value').then((snapshot) => {
             const coins = [];
 
+     
             snapshot.forEach((childSnapshot) => {
+                // let getCoinValue = async () => {
+
+                //     const coinApi = `https://cors-anywhere.herokuapp.com/https://api.coinmarketcap.com/v1/ticker/${childSnapshot.val().name}`;
+                //     let requestCoin;
+                //     let type;
+
+                //     try {
+                //         requestCoin = await axios.get(coinApi);       
+                //     }catch(error){
+                //         console.log('error', error);
+                //     }
+
+                //     let newValue = requestCoin.data[0].price_usd * childSnapshot.val().amount;
+                //     console.log(newValue)
+                //     database.ref(`users/${uid}/coins/${childSnapshot.key}`).set(newValue)
+
+                // }        
+
+                // getCoinValue();
                 coins.push({
                     id: childSnapshot.key,
                     ...childSnapshot.val()
                 });
+
             });
 
             dispatch(setCoins(coins));

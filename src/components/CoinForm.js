@@ -8,9 +8,9 @@ export default class CoinForm extends React.Component {
 
         this.state = {
             amount: props.coin ? (props.coin.amount / 100).toString() : '',
-            name: '',
+            name: props.coin ? props.coin.name : '',
             error: '',
-            times: '',
+            times: props.coin ? (props.coin.times / 100).toString() : '',
             coins: []
         };
     }
@@ -29,13 +29,13 @@ export default class CoinForm extends React.Component {
 
     renderAllCoins = async () => {
 
-        const allCoinsApi = 'https://api.coinmarketcap.com/v1/ticker/';
+        const allCoinsApi = 'https://cors-anywhere.herokuapp.com/https://api.coinmarketcap.com/v1/ticker/';
         let requestAllCoins;
         let type;
 
         try {
             requestAllCoins = await axios.get(allCoinsApi); 
-            type = "FETCH_ALL_COINS"       
+            type = "FETCH_ALL_COINS" 
         }catch(error){
             console.log('error', error);
         }
@@ -57,14 +57,13 @@ export default class CoinForm extends React.Component {
 
         try {
             requestCoin = await axios.get(coinApi); 
-            type = "FETCH_COIN"       
         }catch(error){
             console.log('error', error);
         }
 
-        let times = requestCoin.data[0].price_usd;
+        let newTimes = requestCoin.data[0].price_usd;
 
-        times = times * this.state.amount;
+        let times = newTimes * this.state.amount;
 
         this.setState(() => ({ times }));
    
@@ -96,7 +95,7 @@ export default class CoinForm extends React.Component {
     render() {
         return(
                 
-                <form className="form" onSubmit={this.onSubmit} onChange={this.getCoinValue.bind(this)}>
+                <form className="form" onSubmit={this.onSubmit} onChange={this.getCoinValue}>
                     {this.state.error && <p className="form__error">{this.state.error}</p>}
                     <select 
                         type="text"
