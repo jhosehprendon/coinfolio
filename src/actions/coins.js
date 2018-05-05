@@ -73,3 +73,35 @@ export const startSetCoins = () => {
         });
     };
 };
+
+// REMOVE_COIN Action creator
+export const removeCoin = ({ id } = {}) => ({
+    type: 'REMOVE_COIN',
+    id
+});
+
+export const startRemoveCoin = ({ id } = {}) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return database.ref(`users/${uid}/coins/${id}`).remove().then(() => {
+            dispatch(removeCoin({ id }));
+        });
+    };
+};
+
+// EDIT_COIN Action creator
+export const editCoin = (id, updates, selectedRemove) => ({
+    type: 'EDIT_COIN',
+    id,
+    updates,
+
+});
+
+export const startEditCoin = (id, updates, selectedRemove) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return database.ref(`users/${uid}/coins/${id}`).update(updates).then(() => {
+            dispatch(editCoin(id, updates));
+        });
+    };
+};
