@@ -43,25 +43,25 @@ export const startSetCoins = () => {
 
      
             snapshot.forEach((childSnapshot) => {
-                // let getCoinValue = async () => {
+                let getCoinValue = async () => {
 
-                //     const coinApi = `https://cors-anywhere.herokuapp.com/https://api.coinmarketcap.com/v1/ticker/${childSnapshot.val().name}`;
-                //     let requestCoin;
-                //     let type;
+                    const coinApi = `https://cors-anywhere.herokuapp.com/https://api.coinmarketcap.com/v1/ticker/${childSnapshot.val().name}`;
+                    let requestCoin;
+                    let type;
 
-                //     try {
-                //         requestCoin = await axios.get(coinApi);       
-                //     }catch(error){
-                //         console.log('error', error);
-                //     }
+                    try {
+                        requestCoin = await axios.get(coinApi);       
+                    }catch(error){
+                        console.log('error', error);
+                    }
 
-                //     let newValue = requestCoin.data[0].price_usd * childSnapshot.val().amount;
-                //     console.log(newValue)
-                //     database.ref(`users/${uid}/coins/${childSnapshot.key}`).set(newValue)
+                    let newValue = requestCoin.data[0].price_usd * childSnapshot.val().amount;
+                    console.log(newValue)
+                    database.ref(`users/${uid}/coins/${childSnapshot.key}/times`).set(newValue)
 
-                // }        
+                }        
 
-                // getCoinValue();
+                getCoinValue();
                 coins.push({
                     id: childSnapshot.key,
                     ...childSnapshot.val()
