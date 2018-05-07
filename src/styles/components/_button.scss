@@ -1,13 +1,19 @@
-.button {
+.button{
   background: $blue;
-  border: none;
   color: white;
   display: inline-block;
-  font-size: $font-size-large;
-  font-weight: 300;
-  line-height: 1;
+  border: none;
   padding: $s-size;
+  font-weight: 300;
+  font-size: $font-size-large;
+  outline: none;
   text-decoration: none;
+  line-height: 1;
+}
+
+.button--primary__modal {
+  margin-left: 20px;
+  margin-bottom: 20px;
 }
 
 .button--link {

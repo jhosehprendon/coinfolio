@@ -16,7 +16,7 @@ export class EditCoinPage extends React.Component {
     }
 
     onSubmit = (coin)=>{
-        this.props.startEdit(this.props.coin.id, coin);
+        this.props.startEditCoin(this.props.coin.id, coin);
         this.props.history.push('/');
     };
 
@@ -56,7 +56,7 @@ export class EditCoinPage extends React.Component {
                         coin={this.props.coin}
                         onSubmit={this.onSubmit}
                     />
-                    <button className="button button--secondary" onClick={this.onOpenModal}>Remove Expense</button>
+                    <button className="button button--secondary" onClick={this.onOpenModal}>Remove Coin</button>
                 </div>
 
                 <RemoveModal 
