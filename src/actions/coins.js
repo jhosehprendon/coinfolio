@@ -14,10 +14,9 @@ export const startAddCoin = (coinData = {}) => {
         const uid = getState().auth.uid;
         const {
             name="",  
-            amount=0,
-            times=0
+            amount=0
         } = coinData;
-        const coin = {name, amount, times};
+        const coin = {name, amount};
 
         return database.ref(`users/${uid}/coins`).push(coin).then((ref) => {
             dispatch(addCoin({
@@ -56,7 +55,6 @@ export const startSetCoins = () => {
                     }
 
                     let newValue = requestCoin.data[0].price_usd * childSnapshot.val().amount;
-                    console.log(newValue)
                     database.ref(`users/${uid}/coins/${childSnapshot.key}/times`).set(newValue)
 
                 }        

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { startFetchCoins } from '../actions/coins';
 import CoinListItem from './CoinListItem';
+import axios from 'axios';
 
 export const ConList = (props) => (
     <div className="content-container">
@@ -19,8 +20,9 @@ export const ConList = (props) => (
                 ) : (
 
                     props.coins.map((coin)=> {
-
+                        
                         return <CoinListItem key={coin.id} {...coin} />
+                        
                     })
                 )
             }
