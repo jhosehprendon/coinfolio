@@ -9,6 +9,11 @@ const coinsReducer = (state = coinsReducerDefaultState, action) => {
             ];
         case 'SET_COINS':
             return action.coins; 
+        // case 'FETCH_ALL_COINS':
+        //     return {
+        //         ...state,
+        //         coinlist: action.payload
+        //     }
         case 'REMOVE_COIN':
         return state.filter(({id}) => {
             return id !== action.id;

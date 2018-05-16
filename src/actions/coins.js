@@ -105,3 +105,32 @@ export const startEditCoin = (id, updates, selectedRemove) => {
         });
     };
 };
+
+
+// // FETCH_ALL_COINS Action creator
+// export const fetchAllCoins = (coinlist) => ({
+//     type: 'FETCH_ALL_COINS',
+//     payload: coinlist
+// });
+
+// export const startFetchAllCoins = () => {
+//     return async (dispatch) => {
+//         const allCoinsApi = 'https://cors-anywhere.herokuapp.com/https://api.coinmarketcap.com/v1/ticker/';
+//         let requestAllCoins;
+
+//         try {
+//             requestAllCoins = await axios.get(allCoinsApi); 
+//         }catch(error){
+//             console.log('error', error);
+//         }
+
+//         let arrayAllCoins = requestAllCoins.data.map(x => {
+//             return (x.name)
+//         });
+
+//         let coinlist = arrayAllCoins;
+//         console.log(coinlist)
+
+//         dispatch(fetchAllCoins(coinlist));
+//     };
+// };

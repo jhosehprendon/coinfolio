@@ -10,7 +10,7 @@ export class AddCoinPage extends React.Component {
         this.props.startAddCoin(coin);
         this.props.history.push('/');
     };
-    
+
     render() {
         return (
             <div>
@@ -39,5 +39,7 @@ const mapDispatchToProps = (dispatch) => {
         startAddCoin: (coin) => dispatch(startAddCoin(coin))
     };
 }
+
+
 
 export default connect(undefined, mapDispatchToProps)(AddCoinPage);

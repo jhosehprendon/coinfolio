@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
+
 
 export default class CoinForm extends React.Component {
 
@@ -11,7 +13,7 @@ export default class CoinForm extends React.Component {
             name: props.coin ? props.coin.name : '',
             error: '',
             times: props.coin ? (props.coin.times / 100).toString() : '',
-            coins: []
+            coinlist: ["Bitcoin", "Ethereum", "Ripple", "Bitcoin Cash", "EOS", "Litecoin", "Cardano", "Stellar", "IOTA", "TRON", "NEO", "Dash", "Monero", "NEM", "VeChain", "Tether", "Bytecoin", "Ethereum Classic", "ICON", "Qtum", "Zcash", "Binance Coin", "OmiseGO", "Lisk", "Zilliqa", "Bitcoin Gold", "Aeternity", "Ontology", "Verge", "Nano", "Steem", "0x", "Decred", "Siacoin", "Wanchain", "Bytom", "BitShares", "Waves", "Stratis", "Bitcoin Diamond", "RChain", "Populous", "Maker", "Augur", "Dogecoin", "Bitcoin Private", "Golem", "IOStoken", "Status", "DigiByte", "Basic Attention Token", "Hshare", "Waltonchain", "DigixDAO", "Aion", "Loopring", "Nebulas", "Ark", "aelf", "Komodo", "Mixin", "Ardor", "Dentacoin", "Loom Network", "KuCoin Shares", "PIVX", "Polymath", "WaykiChain", "Mithril", "Kyber Network", "Fusion", "Gas", "Cortex", "Bancor", "Elastos", "ReddCoin", "Cryptonex", "MonaCoin", "Ethos", "Skycoin", "GXChain", "QASH", "Substratum", "FunFair", "Huobi Token", "Kin", "Veritaseum", "Centrality", "Syscoin", "Matrix AI Network", "CyberMiles", "Enigma", "Dragonchain", "iExec RLC", "Storm", "Gifto", "Nuls", "WAX", "ZCoin", "SALT"]
         };
     }
 
@@ -27,28 +29,6 @@ export default class CoinForm extends React.Component {
         }
     };
 
-    renderAllCoins = async () => {
-
-        const allCoinsApi = 'https://cors-anywhere.herokuapp.com/https://api.coinmarketcap.com/v1/ticker/';
-        let requestAllCoins;
-        let type;
-
-        try {
-            requestAllCoins = await axios.get(allCoinsApi); 
-            type = "FETCH_ALL_COINS" 
-        }catch(error){
-            console.log('error', error);
-        }
-
-        let arrayAllCoins = requestAllCoins.data.map(x => {
-            return (x.name)
-        });
-
-        const coins = arrayAllCoins;
-
-        this.setState(() => ({ coins }));
-
-    }
 
     getCoinValue = async () => {
         const coinApi = `https://cors-anywhere.herokuapp.com/https://api.coinmarketcap.com/v1/ticker/${this.state.name}`;
@@ -57,6 +37,7 @@ export default class CoinForm extends React.Component {
 
         try {
             requestCoin = await axios.get(coinApi); 
+            type = "GET_COIN_VALUE" 
         }catch(error){
             console.log('error', error);
         }
@@ -71,10 +52,6 @@ export default class CoinForm extends React.Component {
         // console.log(this.state.times)
     }
 
-
-    componentWillMount() {
-        this.renderAllCoins();  
-    }
 
     onSubmit = (e) => {
         e.preventDefault();
@@ -104,7 +81,7 @@ export default class CoinForm extends React.Component {
                         onChange={this.onCoinChange}           
                     >
                         <option value="" disabled>Select a coin</option>
-                        {this.state.coins.map((coin, i)=>{
+                        {this.state.coinlist.map((coin, i)=>{
                             return <option key={i}>{coin}</option>
                         })}
                     </select>
