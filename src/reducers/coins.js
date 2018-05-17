@@ -23,8 +23,8 @@ const coinsReducer = (state = coinsReducerDefaultState, action) => {
                 if(coin.id === action.id) {
                     return {
                         ...coin,
-                        ...action.updates,
-                        selectedRemove
+                        ...action.updates
+                    
                     };
                 } else {
                     return coin;

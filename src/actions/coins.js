@@ -89,14 +89,14 @@ export const startRemoveCoin = ({ id } = {}) => {
 };
 
 // EDIT_COIN Action creator
-export const editCoin = (id, updates, selectedRemove) => ({
+export const editCoin = (id, updates) => ({
     type: 'EDIT_COIN',
     id,
     updates,
 
 });
 
-export const startEditCoin = (id, updates, selectedRemove) => {
+export const startEditCoin = (id, updates) => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
         return database.ref(`users/${uid}/coins/${id}`).update(updates).then(() => {

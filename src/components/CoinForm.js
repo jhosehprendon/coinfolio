@@ -29,6 +29,10 @@ export default class CoinForm extends React.Component {
         }
     };
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return true;
+      }
+
     getCoinValue = async () => {
 
         const coinApi = `https://cors-anywhere.herokuapp.com/https://api.coinmarketcap.com/v1/ticker/${this.state.name}`;
@@ -72,7 +76,7 @@ export default class CoinForm extends React.Component {
     render() {
         return(
                 
-                <form className="form" onSubmit={this.onSubmit} onChange={this.getCoinValue}>
+                <form className="form" onSubmit={this.onSubmit} onChange={this.getCoinValue.bind(this)}>
                     {this.state.error && <p className="form__error">{this.state.error}</p>}
                     <select 
                         type="text"
