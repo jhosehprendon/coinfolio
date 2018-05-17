@@ -13,7 +13,7 @@ export default class CoinForm extends React.Component {
             name: props.coin ? props.coin.name : '',
             error: '',
             times: 0,
-            coinlist: ["Bitcoin", "Ethereum", "Ripple", "Bitcoin Cash", "EOS", "Litecoin", "Cardano", "Stellar", "IOTA", "TRON", "NEO", "Dash", "Monero", "NEM", "VeChain", "Tether", "Bytecoin", "Ethereum Classic", "ICON", "Qtum", "Zcash", "Binance Coin", "OmiseGO", "Lisk", "Zilliqa", "Bitcoin Gold", "Aeternity", "Ontology", "Verge", "Nano", "Steem", "0x", "Decred", "Siacoin", "Wanchain", "Bytom", "BitShares", "Waves", "Stratis", "Bitcoin Diamond", "RChain", "Populous", "Maker", "Augur", "Dogecoin", "Bitcoin Private", "Golem", "IOStoken", "Status", "DigiByte", "Basic Attention Token", "Hshare", "Waltonchain", "DigixDAO", "Aion", "Loopring", "Nebulas", "Ark", "aelf", "Komodo", "Mixin", "Ardor", "Dentacoin", "Loom Network", "KuCoin Shares", "PIVX", "Polymath", "WaykiChain", "Mithril", "Kyber Network", "Fusion", "Gas", "Cortex", "Bancor", "Elastos", "ReddCoin", "Cryptonex", "MonaCoin", "Ethos", "Skycoin", "GXChain", "QASH", "Substratum", "FunFair", "Huobi Token", "Kin", "Veritaseum", "Centrality", "Syscoin", "Matrix AI Network", "CyberMiles", "Enigma", "Dragonchain", "iExec RLC", "Storm", "Gifto", "Nuls", "WAX", "ZCoin", "SALT"]
+            coinlist: ["Bitcoin", "Ethereum", "Ripple", "Bitcoin-Cash", "EOS", "Litecoin", "Cardano", "Stellar", "IOTA", "TRON", "NEO", "Dash", "Monero", "NEM", "VeChain", "Tether", "Bytecoin-bcn", "Ethereum-Classic", "ICON", "Qtum", "Zcash", "Binance-Coin", "OmiseGO", "Lisk", "Zilliqa", "Bitcoin-Gold", "Aeternity", "Ontology", "Verge", "Nano", "Steem", "0x", "Decred", "Siacoin", "Wanchain", "Bytom", "BitShares", "Waves", "Stratis", "Bitcoin-Diamond", "RChain", "Populous", "Maker", "Augur", "Dogecoin", "Bitcoin-Private", "Golem-network-tokes", "IOStoken", "Status", "DigiByte", "Basic-Attention-Token", "Hshare", "Waltonchain", "DigixDAO", "Aion", "Loopring", "Nebulas-token", "Ark", "aelf", "Komodo", "Mixin", "Ardor", "Dentacoin", "Loom-Network", "KuCoin-Shares", "PIVX", "Polymath-network", "WaykiChain", "Mithril", "Kyber-Network", "Fusion", "Gas", "Cortex", "Bancor", "Elastos", "ReddCoin", "Cryptonex", "MonaCoin", "Ethos", "Skycoin", "GXChain", "QASH", "Substratum", "FunFair", "Huobi-Token", "Kin", "Veritaseum", "Centrality", "Syscoin", "Matrix AI Network", "CyberMiles", "Enigma", "Dragonchain", "iExec-RLC", "Storm", "Gifto", "Nuls", "WAX", "ZCoin", "SALT"]
         };
     }
 
@@ -42,8 +42,15 @@ export default class CoinForm extends React.Component {
         }
 
         let times = requestCoin.data[0].price_usd * this.state.amount;
-        return times
+        console.log(times);
+        this.setState(() => ({ times }))
+    
     }  
+
+    // componentDidMount() {
+    //     this.getCoinValue();
+
+    // }
 
 
     onSubmit = (e) => {
@@ -51,9 +58,8 @@ export default class CoinForm extends React.Component {
 
         if(!this.state.name || !this.state.amount) {
             this.setState(() => ({ error: 'Please select a coin and input amount' }));
-        } else {
+        } else if (this.state.times) {
             this.setState(() => ({ error: ''})); 
-            this.getCoinValue();
             this.props.onSubmit({
                 name: this.state.name,
                 amount: parseFloat(this.state.amount, 10) * 100,
@@ -66,7 +72,7 @@ export default class CoinForm extends React.Component {
     render() {
         return(
                 
-                <form className="form" onSubmit={this.onSubmit}>
+                <form className="form" onSubmit={this.onSubmit} onChange={this.getCoinValue}>
                     {this.state.error && <p className="form__error">{this.state.error}</p>}
                     <select 
                         type="text"
