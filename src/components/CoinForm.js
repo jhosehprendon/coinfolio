@@ -35,12 +35,12 @@ export default class CoinForm extends React.Component {
 
     getCoinValue = async () => {
 
-        const coinApi = `https://cors-anywhere.herokuapp.com/https://api.coinmarketcap.com/v1/ticker/${this.state.name}`;
+        const coinApi = `http://localhost:3000/coindata/${this.state.name}`;
         let requestCoin;
         let type;
 
         try {
-            requestCoin = await axios.get(coinApi);       
+            requestCoin = await axios.get(coinApi );       
         }catch(error){
             console.log('error', error);
         }
@@ -62,7 +62,7 @@ export default class CoinForm extends React.Component {
 
         if(!this.state.name || !this.state.amount) {
             this.setState(() => ({ error: 'Please select a coin and input amount' }));
-        } else if (this.state.times) {
+        } else {
             this.setState(() => ({ error: ''})); 
             this.props.onSubmit({
                 name: this.state.name,
@@ -76,7 +76,7 @@ export default class CoinForm extends React.Component {
     render() {
         return(
                 
-                <form className="form" onSubmit={this.onSubmit} onChange={this.getCoinValue.bind(this)}>
+                <form className="form" onSubmit={this.onSubmit} onChange={this.getCoinValue}>
                     {this.state.error && <p className="form__error">{this.state.error}</p>}
                     <select 
                         type="text"
