@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import numeral from 'numeral';
 
-const CoinListItem = ({ name, amount, id, times }) => (
+const UserListItem = ({ name, amount, id, times }) => (
 
     <Link className="list-item" to={`/edit/${id}`}>
         <div>
@@ -14,4 +14,4 @@ const CoinListItem = ({ name, amount, id, times }) => (
 );
 
 
-export default CoinListItem;
+export default UserListItem;

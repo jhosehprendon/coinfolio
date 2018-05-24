@@ -10,7 +10,6 @@ app.use(cors());
 app.get('/coindata/:name', async (req, res, next) => {
   try {
     const response = await axios.get(`https://api.coinmarketcap.com/v1/ticker/${req.params.name}`);
-    console.log('Coinmarketcap', response.data);
     res.json(response.data)
   } catch (error) {
     res.status(500).json({error})

@@ -6,6 +6,7 @@ import AddCoinPage from '../components/AddCoinPage';
 import EditCoinPage from '../components/EditCoinPage';
 import NotFoundPage from '../components/NotFoundPage';
 import LoginPage from '../components/LoginPage';
+import UserList from '../components/UserList';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
@@ -15,7 +16,8 @@ const AppRouter = () => (
   <Router history={history}>
     <div>
       <Switch>
-        <PublicRoute path="/" component={LoginPage} exact={true} />
+        <PublicRoute path="/" component={LoginPage} exact={true}/>
+        <PrivateRoute path="/list" component={UserList}/>
         <PrivateRoute path="/dashboard" component={PortafolioDashboardPage} />
         <PrivateRoute path="/add" component={AddCoinPage}/>
         <PrivateRoute path="/edit/:id" component={EditCoinPage}/>

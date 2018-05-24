@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { startFetchCoins } from '../actions/coins';
-import CoinListItem from './CoinListItem';
-import axios from 'axios';
+import UserListItem from './UserListItem';
 
-export const ConList = (props) => (
+export const UserList = (props) => (
     <div className="content-container">
         <div className="list-header">
             <div className="show-for-mobile">Coins</div>
@@ -21,7 +20,7 @@ export const ConList = (props) => (
 
                     props.coins.map((coin)=> {
                         
-                        return <CoinListItem key={coin.id} {...coin} />
+                        return <UserListItem key={coin.id} {...coin} />
                         
                     })
                 )
@@ -39,7 +38,4 @@ const mapStateToProps = (state) => {
 
 
 
-export default connect(mapStateToProps)(ConList);
-
-
-
+export default connect(mapStateToProps)(UserList);
